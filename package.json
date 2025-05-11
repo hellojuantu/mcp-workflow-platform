@@ -1,5 +1,5 @@
 {
-  "name": "workflow-platform",
+  "name": "mcp-workflow-platform",
   "version": "1.0.0",
   "description": "A flexible and extensible workflow engine built with TypeScript",
   "main": "dist/index.js",

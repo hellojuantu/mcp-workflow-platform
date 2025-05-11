@@ -1,4 +1,4 @@
-# 工作流平台
+# MCP 工作流平台
 
 [English](README.md) | [中文](README.zh-CN.md)
 
@@ -29,25 +29,20 @@ import { WorkflowDefinition } from './types/types';
 const workflow: WorkflowDefinition = {
     id: 'example-workflow',
     version: '1.0',
-    name: 'Example Workflow',
+    name: '示例工作流',
     steps: [
         {
             id: 'step1',
             type: 'task',
             plugin: 'mcp_plugin',
             tool: 'mcp_tool',
-            input: {
-                context: {
-                    server: {
-                        path: '$.input.server',
-                        required: true
-                    }
+            parameters: {
+                server: {
+                    path: '$.input.server',
+                    required: true
                 }
             },
-            output: {
-                target: 'result',
-                transform: 'content[0].status'
-            },
+            output: 'result',
             next: 'step2'
         }
         // ... 添加更多步骤 ...
@@ -61,7 +56,7 @@ const workflow: WorkflowDefinition = {
 ```typescript
 import { WorkflowEngine } from './core/workflowEngine';
 
-const engine = new WorkflowEngine();
+const engine = await WorkflowEngine.create();
 const result = await engine.executeWorkflow(
     workflow,
     { input: { server: 'mcp-server-1' } },
@@ -81,7 +76,7 @@ console.log('工作流结果:', result);
 
 ## MCP 集成
 
-平台提供与 MCP 服务器的无缝集成：
+平台提供与 MCP 服务器的集成：
 
 * 服务器配置管理
 * 云资源操作

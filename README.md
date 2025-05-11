@@ -1,4 +1,4 @@
-# Workflow Platform
+# MCP Workflow Platform
 
 [English](README.md) | [中文](README.zh-CN.md)
 
@@ -36,18 +36,13 @@ const workflow: WorkflowDefinition = {
             type: 'task',
             plugin: 'mcp_plugin',
             tool: 'mcp_tool',
-            input: {
-                context: {
-                    server: {
-                        path: '$.input.server',
-                        required: true
-                    }
+            parameters: {
+                server: {
+                    path: '$.input.server',
+                    required: true
                 }
             },
-            output: {
-                target: 'result',
-                transform: 'content[0].status'
-            },
+            output: 'result',
             next: 'step2'
         }
         // ... add more steps ...
@@ -61,7 +56,7 @@ const workflow: WorkflowDefinition = {
 ```typescript
 import { WorkflowEngine } from './core/workflowEngine';
 
-const engine = new WorkflowEngine();
+const engine = await WorkflowEngine.create();
 const result = await engine.executeWorkflow(
     workflow,
     { input: { server: 'mcp-server-1' } },
@@ -81,7 +76,7 @@ console.log('Workflow result:', result);
 
 ## MCP Integration
 
-The platform provides seamless integration with MCP servers:
+The platform provides integration with MCP servers:
 
 * Server configuration management
 * Cloud resource operations
