@@ -1,6 +1,6 @@
  # Workflow Platform
 
-[English](README.en.md) | [简体中文](README.md)
+[English](README.md) | [简体中文](README.zh-CN.md)
 
 A flexible and extensible workflow engine built with TypeScript, designed to handle complex business processes and automation tasks.
 
