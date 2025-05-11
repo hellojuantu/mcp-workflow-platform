@@ -1,0 +1,12 @@
+{
+    "mcpServers": {
+        "add_prefix": {
+            "command": "node",
+            "args": ["./plugins/addPrefix.mjs"]
+        },
+        "to_upper": {
+            "command": "node",
+            "args": ["./plugins/toUpperCase.mjs"]
+        }
+    }
+}
