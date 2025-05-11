@@ -1,104 +1,98 @@
- # Workflow Platform
+# Workflow Platform
 
-[English](README.md) | [简体中文](README.zh-CN.md)
+[English](README.md) | [中文](README.zh-CN.md)
 
-A flexible and extensible workflow engine built with TypeScript, designed to handle complex business processes and automation tasks.
+A flexible and extensible TypeScript workflow engine.
 
 ## Features
 
-- 🚀 TypeScript-based workflow engine
-- 🔌 Plugin architecture for extensibility
-- 📝 Step-by-step workflow execution
-- 🔄 Support for conditional branching
-- 📊 Built-in logging and monitoring
-- 🧪 Comprehensive test coverage
-
-## Prerequisites
-
-- Node.js (v16 or higher)
-- npm (v7 or higher)
+* Plugin-based architecture
+* Built-in condition types
+* Context-driven data flow
+* Type-safe workflow definitions
+* Extensible plugin system
 
 ## Installation
 
-1. Clone the repository:
-```bash
-git clone [your-repository-url]
-cd workflow-platform
-```
-
-2. Install dependencies:
 ```bash
 npm install
 ```
 
-## Development
+## Usage
 
-To start the development server:
+### Define a Workflow
 
-```bash
-npm run dev
+```typescript
+import { WorkflowDefinition } from 'your-workflow-package';
+
+const workflow: WorkflowDefinition = {
+  id: "example-workflow",
+  version: "1.0.0",
+  name: "Example Workflow",
+  steps: [
+    {
+      id: "step1",
+      type: "task",
+      plugin: "example_plugin",
+      tool: "example_tool",
+      input: {
+        context: {
+          text: {
+            path: "$.input.text",
+            required: true
+          }
+        }
+      },
+      output: {
+        target: "result",
+        transform: "content[0].text"
+      },
+      next: "step2"
+    }
+    // …add more steps as needed…
+  ],
+  startAt: "step1"
+};
 ```
 
-This will run the application using `tsx` for TypeScript execution.
+### Execute the Workflow
 
-## Building
+```typescript
+import { WorkflowEngine } from 'your-workflow-package';
 
-To build the project:
+const engine = new WorkflowEngine();
+const result = await engine.executeWorkflow(
+  workflow,
+  { input: { text: "Hello" } },
+  console.log
+);
 
-```bash
-npm run build
+console.log('Workflow result:', result);
 ```
 
-This will compile TypeScript files into JavaScript in the `dist` directory.
+## Built-in Condition Types
 
-## Running the Build
+* `string-length`  — compare string length
+* `number-compare` — compare numbers
+* `string-contains`— check if string contains a substring
+* `string-equals`  — check if two strings are equal
+* `value-exists`   — check if a value exists
 
-After building, you can run the compiled code using:
+## Input / Output
 
-```bash
-node ./dist/index.js
-```
+### Input Types
 
-## Available Scripts
+* Literal values
+* Context-path values (`$.some.path`)
+* Required fields
+* Default values
 
-- `npm run dev` - Start development server
-- `npm run build` - Build the project
-- `npm run lint` - Run ESLint
-- `npm run format` - Format code with Prettier
+### Output Types
 
-## Project Structure
-
-```
-workflow-platform/
-├── src/              # Source files
-│   ├── core/         # Core workflow engine
-│   ├── types/        # TypeScript type definitions
-│   └── config/       # Configuration files
-├── dist/             # Compiled output
-├── tests/            # Test files
-└── package.json      # Project configuration
-```
-
-## Testing
-
-The project includes comprehensive test coverage. Run tests using:
-
-```bash
-npm test
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+* Target fields
+* Transformation expressions
+* Filter conditions
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Support
-
-For support, please open an issue in the GitHub repository.
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.

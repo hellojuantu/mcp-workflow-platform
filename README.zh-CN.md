@@ -80,10 +80,6 @@ const result = await engine.executeWorkflow(workflow, { input: { text: "Hello" }
 - 转换表达式
 - 过滤条件
 
-## 贡献指南
-
-我们欢迎各种形式的贡献！请查看我们的[贡献指南](CONTRIBUTING.md)了解详情。
-
 ## 开源协议
 
 本项目采用 MIT 协议 - 详见 [LICENSE](LICENSE) 文件。 
